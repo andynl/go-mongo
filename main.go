@@ -22,15 +22,16 @@ func main() {
 
 	// saveProfile(profileRepository)
 	// updateProfile(profileRepository)
-	deleteProfile(profileRepository)
+	// deleteProfile(profileRepository)
+	getProfile("2", profileRepository)
 }
 
 func saveProfile(profileRepository repository.ProfileRepository) {
 	var p model.Profile
-	p.ID = "1"
-	p.FirstName = "Andy"
-	p.LastName = "Natalino"
-	p.Email = "andy.natalino@gmail.com"
+	p.ID = "2"
+	p.FirstName = "Legion"
+	p.LastName = "Lenovo"
+	p.Email = "legion@gmail.com"
 	p.Password = "123456"
 	p.CreatedAt = time.Now()
 	p.UpdatedAt = time.Now()
@@ -71,4 +72,17 @@ func deleteProfile(profileRepository repository.ProfileRepository) {
 	} else {
 		fmt.Println("Profile deleted..")
 	}
+}
+
+func getProfile(id string, profileRepository repository.ProfileRepository) {
+	profile, err := profileRepository.FindByID(id)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(profile.ID)
+	fmt.Println(profile.FirstName)
+	fmt.Println(profile.LastName)
+	fmt.Println(profile.Email)
 }
