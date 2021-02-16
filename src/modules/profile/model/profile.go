@@ -14,4 +14,4 @@ type Profile struct {
 }
 
 //Profiles
-type Profiles []Profiles
+type Profiles []Profile

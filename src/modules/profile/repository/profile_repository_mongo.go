@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"log"
 	"time"
 
 	"github.com/andynl/go-mongo/config"
@@ -87,7 +88,11 @@ func (r *profileRepositoryMongo) FindAll() (model.Profiles, error) {
 
 	var profiles model.Profiles
 
-	_, err := r.db.Collection(r.collection).Find(ctx, bson.D{})
+	profile, err := r.db.Collection(r.collection).Find(ctx, bson.D{{}})
+
+	if err = profile.All(ctx, &profiles); err != nil {
+		log.Fatal(err)
+	}
 
 	if err != nil {
 		return nil, err

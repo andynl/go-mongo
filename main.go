@@ -23,7 +23,8 @@ func main() {
 	// saveProfile(profileRepository)
 	// updateProfile(profileRepository)
 	// deleteProfile(profileRepository)
-	getProfile("2", profileRepository)
+	// getProfile("2", profileRepository)
+	getProfiles(profileRepository)
 }
 
 func saveProfile(profileRepository repository.ProfileRepository) {
@@ -85,4 +86,19 @@ func getProfile(id string, profileRepository repository.ProfileRepository) {
 	fmt.Println(profile.FirstName)
 	fmt.Println(profile.LastName)
 	fmt.Println(profile.Email)
+}
+
+func getProfiles(profileRepository repository.ProfileRepository) {
+	profiles, err := profileRepository.FindAll()
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for _, profile := range profiles {
+		fmt.Println(profile.ID)
+		fmt.Println(profile.FirstName)
+		fmt.Println(profile.LastName)
+		fmt.Println(profile.Email)
+	}
 }
