@@ -37,8 +37,21 @@ func (r *profileRepositoryMongo) Update(id string, profile *model.Profile) error
 	ctx, cancel := config.NewMongoContext()
 	defer cancel()
 
+	filter := bson.M{"id": id}
+	update := bson.M{"$set": bson.M{
+		"first_name": profile.FirstName,
+		"last_name":  profile.LastName,
+		"email":      profile.Email,
+		"password":   profile.Password,
+	}}
+
 	profile.UpdatedAt = time.Now()
-	_, err := r.db.Collection(r.collection).UpdateOne(ctx, bson.M{"id": id}, profile)
+	_, err := r.db.Collection(r.collection).UpdateOne(
+		ctx,
+		filter,
+		update,
+	)
+
 	return err
 }
 
