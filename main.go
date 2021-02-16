@@ -21,7 +21,8 @@ func main() {
 	profileRepository := repository.NewProfileRepositoryMongo(db, "profile")
 
 	// saveProfile(profileRepository)
-	updateProfile(profileRepository)
+	// updateProfile(profileRepository)
+	deleteProfile(profileRepository)
 }
 
 func saveProfile(profileRepository repository.ProfileRepository) {
@@ -60,5 +61,14 @@ func updateProfile(profileRepository repository.ProfileRepository) {
 	} else {
 		fmt.Println("Profile updated..")
 	}
+}
 
+func deleteProfile(profileRepository repository.ProfileRepository) {
+	err := profileRepository.Delete("1")
+
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Profile deleted..")
+	}
 }
